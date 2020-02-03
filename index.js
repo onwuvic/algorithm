@@ -43,3 +43,37 @@ const isUnique = (array) => {
     return result;
 }
 
+// Test code
+// const test = [3, 5, 5,5,10, 29, 1, 1, 3, 5];
+
+// console.log(isUnique(test));  false
+
+ 
+// Returns an array of only the unique value.
+// This algorithm is linear O(n). Time complexity increases as the number of element increases.
+// There is also a trade-off of space complexity here, as we have to store some temporary data
+const uniqueSort = (array) => {
+    const breadCrumbs = {};
+    const result = [];
+    // Pseudo code
+    // 1. check through all element (for loop)
+    // 2. if element doesn't exist, store it in breadcrumb, 
+        // make the array value our key (property) and its value true
+    // 3. then push the value to a temporary data store (call result)
+    // 4. if the value already exist, just skip it
+    // 5. remove the duplicated element with native sort and return
+
+    for (let index = 0; index < array.length; index++) {
+        if (!breadCrumbs[array[index]]) {
+            breadCrumbs[array[index]] = true;
+            result.push(array[index]); 
+        }  
+    }
+
+    return result.sort((a, b) => a - b);
+}
+
+// Test code
+// const test = [3, 5, 5,5,10, 29, 1, 1, 3, 5];
+
+// console.log(uniqueSort(test));  [1,3,5,10,29]
