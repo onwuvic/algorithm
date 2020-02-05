@@ -67,4 +67,29 @@ fun() {
 }
 
 
+What is memoization
+--------------------
+Memoization is caching the value a function returns
+
+e.g
+
+const cache = {};
+
+func(n) {
+    const innerFunc(n) {
+        return n*10;
+    }
+
+    if(n in cache) {
+        return cache[n];
+    } else {
+        // This process is memoization
+        // when get the result of the function, then cache it for later usage.
+        const result = innerFunc(n);
+        cache[n] = result;
+        return result
+    }
+}
+
+
 */ 
