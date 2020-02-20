@@ -78,7 +78,12 @@ const uniqueSort = (array) => {
 
 // console.log(uniqueSort(test));  [1,3,5,10,29]
 
+
 /*
+    Search Algorithms:
+    Linear Search O(n)
+    Binary Search O(logn)
+
     Linear Search: This algorithm search for a value in an array by checking each value sequentially.
     This algorithm is O(n) time complexity.
     How it works: It loop through each value in the array and return the first value that match the search value
@@ -137,9 +142,9 @@ function linearSearchRecursive(list, item) {
 }
 
 // Test code 
-// const test = [2,6,7,90,100];
+// const test = [200,61,700,500,90,1,5,9,100];
 
-// console.log(linearSearch(test, 90));  // 3
+// console.log(linearSearch(test, 90));  // 4
 
 /*
     Binary Search: This algorithm search for a value in a SORTED array by cutting the side of the 
@@ -147,3 +152,63 @@ function linearSearchRecursive(list, item) {
     This algorithm is Logarithmic O(logn) time complexity. 
     How it works: It
 */
+function binarySearch(list, item) {
+    // psuedo
+    // create a min index initial it to 0
+    // create a max index initial it to the last index of the list
+    // create a median index
+    // loop through while the min index is less or equal to the max index
+    // find the median index by dividing the sum of min & max index by 2
+    // if the item is equal to the median index value on the list return the index
+    // else, 
+        // if the median index value on the list (9) is less than the item (20), 
+            // this means our search value is towards the right. 
+            // update the min index to be the current median index + 1
+        // else, if the median index value on the list (20) is less than the item (9),
+            // this means our search value is towards the left.
+            // update the max index to be the current median index - 1
+    // then continue the loop until min index is equal the max index.
+
+    let minIndex = 0; // start of the list index
+    let maxIndex = list.length - 1; // end of the list index
+    let medianIndex; // the middle index variable declaration
+
+    // While the start(index) is less or equal to end(index)
+    while (minIndex <= maxIndex) {
+        // divide the sum of start and end index = the middle index
+        // i.e 0 + 4 = 4/2 = 2
+        medianIndex = Math.floor((minIndex + maxIndex)/2);
+       
+        // if the value in the middle index is equal to the item
+        if (list[medianIndex] === item) {
+            // return the middle index
+            return medianIndex;
+        } else {
+            // Time to move from left or right
+            if (list[medianIndex] < item) {
+                // if the value in the middle index is less than the item
+                // i.e 9 (middle value) < 20 (search value)
+                // go right then
+                // let reset Start index
+                // add one to the current index e.g 2 + 1 = 3
+                // min = 3, max = 4
+                minIndex = medianIndex + 1;
+            } else {
+                // if the value in the middle is greater than the item
+                // i.e 20 (middle value) > 9 (search value)
+                // go left then
+                // let reset the End index
+                // substract one from End index e.g 4 - 1 = 3
+                // min = 0, max = 3
+                maxIndex = medianIndex - 1;
+            }
+        }
+    }
+    // when Item isn't on the list return -1
+    return -1;
+}
+
+// Test code 
+// const test = [2,6,7,90,100];
+
+// console.log(binarySearch(test, 90));  // 3
