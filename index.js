@@ -81,8 +81,8 @@ const uniqueSort = (array) => {
 
 /*
     Search Algorithms:
-    Linear Search O(n)
-    Binary Search O(logn)
+    - Linear Search O(n)
+    - Binary Search O(logn)
 
     Linear Search: This algorithm search for a value in an array by checking each value sequentially.
     This algorithm is O(n) time complexity.
@@ -212,3 +212,82 @@ function binarySearch(list, item) {
 // const test = [2,6,7,90,100];
 
 // console.log(binarySearch(test, 90));  // 3
+
+/*
+    Sorting Algorithm:
+    1. Naive Sort - keep looping through the comparing values until the list is sorted. 
+                    They are quadratic. O(n^2)
+        - Bubble Sort
+        - Insertion Sort
+        - Selection Sort
+
+    2. Divide & Conquer Sorts - recursively divide the lists and sort small part of the list
+        until the entire list is sorted.
+        - Mergesort
+        - Quicksort
+
+        A. Bubble Sort: This loop through an array compare adjacent indices and swap the greater 
+                        value to the end
+                        e.g [6, 2, 4, 3, 7]
+                        [(2), (6), 4, 3, 7] [2, (4), (6), 8, 7] [2, 4, (6), (8), 7] [2, 4, 6, (7), (8)]
+
+        B. Insertion Sort: This loop through an array list the smallest and add it to a new array.
+        
+        C. Mergesort: Divide the list into half every time till only one value then compare each node to self. 
+                     It is O(nlogn)
+*/ 
+// helper function
+function swap(list, firstIndex, secondIndex) {
+    let temp = list[firstIndex]; // greater value
+    list[firstIndex] = list[secondIndex]; // put the smaller value to the first position(index)
+    list[secondIndex] = temp; // then move the greater value to the second position(index)
+};
+
+// Bubble Sort
+function bubbleSort(list) {
+    let swaped;
+    do {
+        // set swaped false
+        swaped = false;
+        for (let index = 0; index < list.length; index++) {
+            // loop through all elements
+            if (list[index] && list[index + 1] && list[index] > list[index + 1]) {
+                // if there is element i and i+1
+                // if i value is greater than i+1 value
+                // i>i+1
+                // call swap
+                swap(list, index, index + 1)
+
+                // set swapped to true
+                // if it get here 
+                // call the while again to do
+                swaped = true;
+            }        
+        }
+    } while (swaped);
+
+    // return the sorted list
+    return list;
+}
+
+// TEST CODE
+// const arrayRandom = [9, 2, 5, 6, 4, 3, 7, 10, 1, 8];
+// const arrayOrdered = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+// const arrayReserved = [10, 9, 8, 7, 6, 5, 4, 3, 2, 1];
+
+// console.log(bubbleSort(arrayRandom));
+
+// MergeSort
+function mergeSort(list) {
+    // Psuedo code
+    /*
+        - initialize n to the length of the list
+        - recursive base case: if n < 2, just return
+        - initialize mid to n/2
+        - left: left slice of array to mid -1
+        - right: right slice of array mid to n-1
+        mergeSort(left)
+        mergeSort(right)
+        merge(left, right)
+    */ 
+}
