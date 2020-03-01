@@ -243,12 +243,30 @@ function swap(list, firstIndex, secondIndex) {
     list[secondIndex] = temp; // then move the greater value to the second position(index)
 };
 
-// Bubble Sort
+function merge(left, right) {
+    const result = [];
+    let leftIndex = 0;
+    let rightIndex = 0;
+
+    while (leftIndex < left.length && rightIndex < right.length) {
+        if (left[leftIndex] < right[rightIndex]) {
+            result.push(left[leftIndex]);
+            leftIndex++;
+        } else {
+            result.push(right[rightIndex]);
+            rightIndex++;
+        }
+    }
+
+    return result.concat(left.slice(leftIndex)).concat(right.slice(rightIndex));
+}
+
+// Bubble Sort 
 function bubbleSort(list) {
-    let swaped;
+    let swapped;
     do {
-        // set swaped false
-        swaped = false;
+        // set swapped false
+        swapped = false;
         for (let index = 0; index < list.length; index++) {
             // loop through all elements
             if (list[index] && list[index + 1] && list[index] > list[index + 1]) {
@@ -261,10 +279,10 @@ function bubbleSort(list) {
                 // set swapped to true
                 // if it get here 
                 // call the while again to do
-                swaped = true;
+                swapped = true;
             }        
         }
-    } while (swaped);
+    } while (swapped);
 
     // return the sorted list
     return list;
@@ -279,6 +297,7 @@ function bubbleSort(list) {
 
 // MergeSort
 function mergeSort(list) {
+    // basic: split the array into halves and merge them recursively
     // Psuedo code
     /*
         - initialize n to the length of the list
@@ -289,5 +308,52 @@ function mergeSort(list) {
         mergeSort(left)
         mergeSort(right)
         merge(left, right)
-    */ 
+    */
+
+    // our base case
+    if (list.length === 1) {
+        // return once we hit an array with a single item
+        return list;
+    }
+
+    // get the middle value (index) of the list
+    const mid = Math.floor(list.length / 2);
+
+    // get items on the left
+    const left = list.slice(0, mid);
+    // get items on the right
+    const right = list.slice(mid);
+
+    return merge(mergeSort(left), mergeSort(right));
+
 }
+
+// TEST CODE
+
+// const arrayReserved = [10, 9, 8, 7, 6, 5, 4, 3, 2, 1];
+// console.log(mergeSort(arrayReserved));
+
+/*
+    Greedy Algorithm is taking the best immediate optimize solution which might not necessarily be the best solution when looking at the big picture. 
+    In order words, it doesn't look at the big picture optimized solution but rather the immediate optimize solution.
+    This algorithm is suited for large data set where it is not optimal to look at the big picture optimized solution. 
+    For instance, given these routes to move from point A to G.
+
+    Route One
+    A ---> C is 3
+    C ---> B is 4
+    B ---> E is 2
+    E ---> F is 3
+    F ---> G is 4
+    Total Miles = 16
+
+    Route Two
+    A ---> B  is 5
+    B ---> E  is 2
+    E ---> G  is 5
+    Total Miles = 12
+
+    Greedy Algorithm will pick Route One because from the immediate/starting/initial point to the next point 
+    route one has the best option A ---> C is 3 which is better than A ---> B which is 5. 
+    But in the long run, we'll see that route two is better.
+*/ 
