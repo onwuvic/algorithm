@@ -387,3 +387,23 @@ function makeChange(coins, amount) {
 console.log(makeChange([1, 6, 10], 12)) // wrong
 
 // You can go wrong with greedy algorithm.
+
+// Instead of using greedy algorithm, Brute force is better where greedy algorithm fails
+
+// Brute force consider all cases and pick the optimise case
+// Brute force implementation of makeChange
+function makeChange2(value) {
+    if (value === 0) {
+        return 0;
+    }
+    let minCoins;
+    coins.forEach((coin) => {
+        if (value - coin >= 0) {
+            let currMinCoins = makeChange2(value - coin);
+            if (minCoins === undefined || currMinCoins < minCoins) {
+                minCoins = currMinCoins;
+            }
+        }
+    })
+    return minCoins + 1;
+}
