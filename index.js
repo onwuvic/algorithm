@@ -356,4 +356,34 @@ function mergeSort(list) {
     Greedy Algorithm will pick Route One because from the immediate/starting/initial point to the next point 
     route one has the best option A ---> C is 3 which is better than A ---> B which is 5. 
     But in the long run, we'll see that route two is better.
+
+    Question: You are a banker in Monopoly with your family who has lost many of the game pieces
+            so you only have bills in these denominations: $5, $10, $25
+
+            You need only pay out your family in the least number of bills possible so you don't run out before the game is over.
+            Write a function that calculate the least number of bills required for any given dollar amount that is divisible by 5.
+
+            Write a function, makeChange, that returns an integer that represents the least number of coins that add up to an amount
+            where the amount is divisible by 5
 */ 
+
+function makeChange(coins, amount) {
+    coins.sort((a, b) => b - a);
+    let coinTotal = 0;
+    let i = 0;
+    while (amount > 0) {
+        if (coins[i] <= amount) {
+            amount -= coins[i];
+            coinTotal++;
+        } else {
+            i++;
+        }
+    }
+    return coinTotal;
+}
+
+// Test code
+// console.log(makeChange([5, 10, 25], 50)) // right
+console.log(makeChange([1, 6, 10], 12)) // wrong
+
+// You can go wrong with greedy algorithm.
