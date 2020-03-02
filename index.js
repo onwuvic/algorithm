@@ -407,3 +407,7 @@ function makeChange2(value) {
     })
     return minCoins + 1;
 }
+
+/*
+   Dynamic Programming involves caching values to avoid repeated calculations. 
+*/ 
