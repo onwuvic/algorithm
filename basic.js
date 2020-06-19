@@ -96,6 +96,7 @@ What is closure in JavaScript
 ------------------------------
 Closure is an inner function that has access to the outer function variable scope and parameters.
 Closure has access to the outter function scope and global scope.
+Closure is when a function "remembers" its lexical scope even when the function is executed outside that lexical scope.
 
 func(name) {
     const greetings = 'Hi';
