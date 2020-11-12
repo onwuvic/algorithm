@@ -411,3 +411,52 @@ function makeChange2(value) {
 /*
    Dynamic Programming involves caching values to avoid repeated calculations. 
 */ 
+
+
+/*
+    Data Structures
+    - Stack and Queue
+    - Linked List
+    - Hash Table
+    - Array/String
+
+    INTRO
+    1.  Stack and Queue
+        There are ordered data structure that has an opinion of the order in which things can be inserted and remove.
+        For Stack, LIFO (Last In, First Out). e.g array.push() and array.pop() Good use case: back or undo button
+        For Queue, FIFO (First In, First Out). e.g array.push() -> enqueue and array.unshift() -> dequeue  This is a linear operation because after we unshift, we have to push the other element to occupy other index
+        where it is used: parsing, strings, linter, JavaScript runtime, the message queue etc.
+        They are super fast for lookups
+
+    2.  Linked List
+        Organizes items sequentially, with each item storing a pointer to the next value. Note: It is a Sequential DS
+        Pros:
+        - Fast operation on the ends. Unlike dequeue removing from the end/middle isn't costly. it just shift the pointer to something else
+        - Flexible size
+        Cons:
+        - Costly lookups
+
+        Visual expression
+        const linkedList = {
+            head: {
+                value: 1,
+                next: {
+                    value: 2,
+                    next: {
+                        value: 3,
+                        next: null
+                    }
+                }
+            }
+        }
+
+        noted: a singly linked list has one entry point, you can't enter in the middle. It only point one direction, you can't go backwards.
+
+        use cases:
+        - Linked Lists are often the underlying data structure for a stack or queue.
+        - You can implement a Least Recently Used cache using a linked list. recent searches, popular videos, 
+        - Hash tables often use linked lists to handle collisions.
+
+    3.  Hash Table
+        
+*/ 
