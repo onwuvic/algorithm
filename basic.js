@@ -175,5 +175,118 @@ function func() {
 
     return memoize;
 }
+
+What is "this" in JavaScript
+----------------------------
+This key word refer to an object; the subject context
+This refers to the object that invokes the method where this was defined
+This refers to the value of the invoking object
+Note: in strict mode, this value is undefined in global function, while in ananymous function, they are not bound to any object.
+This is not assigned a value until the object invokes the function where "this" is define
+
+var person = {
+    firstName: "Penelope",
+    lastName: "Barrymore",
+
+    // Since the "this" keyword is used inside the showFullName method below, and the showFullName method is defined on the person object,
+    // "this" will have the value of the person object because the person object will invoke showFullName ()
+    showFullName:function () {
+        console.log (this.firstName + " " + this.lastName);
+    }
+}
+
+person.showFullName() // Penelope Barrymore
+
+Where "this" is misunderstood (when "this" is not the value of the invoking object)
+1.  When used in a method passed as a callback
+    var user = {
+        data:[
+            {name:"T. Woods", age:37},
+            {name:"P. Mickelson", age:43}
+        ],
+        clickHandler: function (event) {
+            var randomNum = ((Math.random () * 2 | 0) + 1) - 1; // random number between 0 and 1
+
+            // This line is printing a random person's name and age from the data array
+            console.log (this.data[randomNum].name + " " + this.data[randomNum].age);
+        }
+    }
+
+    $("button").click(user.clickHandler); // Cannot read property '0' of undefined
+
+    Here, the this key word refers to the button object, because button object is the invoking object
+    To make this refer to the user object we can use "bind", "call", or "apply"
+
+    $("button").click(user.clickHandler.bind(user)) // T. Woods 37
+
+2.  This inside closure
+    It is expected that a closure should have access to the outter function variable, but when "this" is use in a closure it doesn't refer to the 
+    outter funtion scope but the window object.
+
+    It is important to take note that closures cannot access the outer function’s this variable by using the this 
+    keyword because the this variable is accessible only by the function itself.
+
+    const person = {
+        first: 'People',
+        last: 'other',
+        full: function() {
+            function getFull() {
+                console.log('2', this.first + ' ' + this.last);
+            }
+            
+            getFull();
+        }
+    }
+
+    person.full(); // "this" is undefined, it refers to the global window object
+
+    How to fix it
+
+    const person = {
+        first: 'People',
+        last: 'other',
+        full: function() {
+            const that = this;
+            function getFull() {
+                console.log('2', that.first + ' ' + that.last);
+            }
+            
+            getFull();
+        }
+    }
+
+    person.full(); // "this" is People other, it refers to the person object here
+
+3.  When the "this" method is assigned to a variable
+    The "this" is bound to another object, if we assigned the THIS method to a variable
+
+    const person = {
+        first: 'People',
+        last: 'other',
+        full: function() {
+            console.log('2', this.first + ' ' + this.last);
+        }
+    }
+
+    const invoke = person.full;
+    invoke() // undefined undefined   this here will refer to another object, in this case the window object
+
+    How to fix this
+    We have specifically bind the person object to it
+    const invoke = person.full.bind(person);
+    invoke() // People other   this here will refer to person object
+
+4.  When borrowing methods
+    when borrow a method from another object that has the "this" key word, the "this" will refer to the method
+    where the THIS Method was defined.
+
+
+JavaScript the Hard Part
+-------------------------
+1. Principles of JavaScript
+2. Callbacks & Higher order functions
+3. Closure (scope and execution context)
+4. Asynchronous JavaScript & the event loop
+5. Classes & Prototypes (OOP)
 */ 
 
