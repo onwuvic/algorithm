@@ -458,5 +458,89 @@ function makeChange2(value) {
         - Hash tables often use linked lists to handle collisions.
 
     3.  Hash Table
-        
+        Hash table is not ordered, so we don't sort hash tables
+        Pros:
+        - It is good for fast lookups
+        - Flexible keys (keys can be string, function, object)
+        Cons:
+        - Slow worst-case lookups
+        - Unordered
+        - Single-directional lookups
+
+        Hash table implementation in JS is in object, Map, Set
+
+    4.  Array/String
+        Organizes items sequentially in memory
+        Pros:
+        - Fast lookups
+        - Fast appends
+        Cons:
+        - Slow insert
+        - Slow delete
 */ 
+
+// Stack Exercise
+class Stack {
+    constructor() {
+        this._storage = {};
+        this._length = 1;
+    }
+
+    /**
+     * Adds a new value at the end of the stack
+     * @param {*} the value to push
+     */
+    push(value) {
+        // type checking and check argument
+        if (value === '') return;
+        this._storage[this._length - 1] = value;
+        this._length++;
+    }
+
+    /**
+     * Remove value at the end of the stack and return it
+     * @returns the last and newest value in the stack
+     */ 
+    pop() {
+        // check if object is empty
+        if (this._length !== 0) {
+            // get the last element
+            const lastValue = this._storage[this._length - 1];
+            // then delete it
+            delete this._storage[this._length - 1];
+            
+            this._length--;
+            // return last value
+            return lastValue;
+        };
+        return undefined;
+    }
+
+    /**
+     * Returns the value at the end of the stack without removing it
+     * @return the last and newest value in the stack
+     */ 
+    peek() {
+        // check if object is empty
+        if (this._length !== 0) {
+            // get the last element
+            const lastValue = this._storage[this._length - 1];
+            // return last value
+            return lastValue;
+        };
+        return undefined;
+    }
+}
+
+const myStack = new Stack();
+
+myStack.push('we');
+myStack.push('cash');
+
+// myStack.pop();
+// myStack.pop();
+// myStack.pop();
+
+myStack.peek();
+
+console.log(myStack);
