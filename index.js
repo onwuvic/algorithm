@@ -483,7 +483,7 @@ function makeChange2(value) {
 class Stack {
     constructor() {
         this._storage = {};
-        this._length = 1;
+        this._length = 0;
     }
 
     /**
@@ -493,7 +493,7 @@ class Stack {
     push(value) {
         // type checking and check argument
         if (value === '') return;
-        this._storage[this._length - 1] = value;
+        this._storage[this._length] = value;
         this._length++;
     }
 
@@ -544,3 +544,60 @@ myStack.push('cash');
 myStack.peek();
 
 console.log(myStack);
+
+// QUEUE Exercise
+
+class Queue {
+    constructor() {
+        this._storage = {};
+        this._length = 0;
+        this._headIndex = 0;
+    }
+
+    /**
+     * Adds a new value at the end of the queue
+     * @param {*} the value to add
+     */
+    enqueue(value) {
+        // type checking and check argument
+        if (value === '') return;
+        const lastIndex = this._length + this._headIndex;
+        this._storage[lastIndex] = value;
+        this._length++;
+    }
+
+    /**
+     * Remove value at the beginning of the queue and return it
+     * @returns the first value in the queue
+     */ 
+    dequeue() {
+        // check if object is empty
+        if (this._length !== 0) {
+            // get the first element
+            const firstValue = this._storage[this._headIndex];
+            // then delete it
+            delete this._storage[this._headIndex];
+            
+            this._length--;
+            this._headIndex++;
+            // return last value
+            return firstValue;
+        };
+        return undefined;
+    }
+
+    /**
+     * Returns the value at the beginning of the Queue without removing it
+     * @return the first value in the Queue
+     */ 
+    peek() {
+        // check if object is empty
+        if (this._length !== 0) {
+            // get the first element
+            const firstValue = this._storage[this._headIndex];
+            // return first value
+            return firstValue;
+        };
+        return undefined;
+    }
+}
