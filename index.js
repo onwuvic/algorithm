@@ -601,3 +601,99 @@ class Queue {
         return undefined;
     }
 }
+
+class LinkedList {
+    constructor(value) {
+        this._storage = {};
+        this.head = { value, next: null };
+        this.tail = this.head;
+    }
+
+    /*
+    * Inserts a new value to the end of the linked list
+    * @param {*} value - the value to insert
+    * This is constant time
+    */
+    insert(value) {
+        const node = { value, next: null };
+        this.tail.next = node;
+        this.tail = node;
+    }
+
+    /*
+    * Deletes a node
+    * @param {*} node - the node to remove
+    * @return {*} value - the deleted node's value
+    */
+   remove() {
+
+   }
+
+   /*
+    * Removes the value at the end of the linked list
+    * @return {*} - the removed value
+    */
+   removeTail() {
+       // get the current head Node
+       let currentNode = this.head;
+       // loop through and stop when the next pointer is pointing to the last node
+       while (currentNode.next !== this.tail) {
+           currentNode = currentNode.next;
+       }
+
+       // here the node is pointing to the node before our last node
+       // let set it next value to null
+       // and then set the tail node to it.
+       const result = currentNode.value;
+       currentNode.next = null;
+       this.tail = currentNode;
+       return result;
+   }
+
+   /*
+    * Searches the linked list and returns true if it contains the value passed
+    * @param {*} value - the value to search for
+    * @return {boolean} - true if value is found, otherwise false
+    */
+   contains() {
+       // set the current head
+       let currentNode = this.head;
+
+       // the last node next is null, while we have not gotten to it keep looping
+       while(currentNode) {
+           // if the node value is our value
+           if (currentNode.value === value) {
+               // return true
+               return !!currentNode;
+            }
+            // else set it the current node to the next node
+            currentNode = currentNode.next;
+        }
+        // this will be the last node, which is null. so return false
+        return !!currentNode;
+   }
+
+   /*
+    * Checks if a node is the head of the linked list 
+    * @param {{prev:Object|null, next:Object|null}} node - the node to check
+    * @return {boolean} - true if node is the head, otherwise false
+    */
+   isHead(node) {
+    return node === this.head;
+   }
+
+   /*
+    * Checks if a node is the tail of the linked list 
+    * @param {{prev:Object|null, next:Object|null}} node - the node to check
+    * @return {boolean} - true if node is the tail, otherwise false
+    */
+   isTail(node) {
+    return node === this.tail;
+   }
+
+}
+
+// linked list solution https://repl.it/@bgando/linked-list-solution#main.js
+
+// Note: for linkedlist operation looping through with for, forEach won't work rather use while instead
+// traverse with one pointer or two pointer
