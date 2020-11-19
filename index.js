@@ -697,3 +697,87 @@ class LinkedList {
 
 // Note: for linkedlist operation looping through with for, forEach won't work rather use while instead
 // traverse with one pointer or two pointer
+
+
+class HashTable {
+    constructor(val) {
+        this._storage = [];
+        this._tableSize = val;
+    }
+
+    /*
+    * Inserts a new key-value pair
+    * @param {string} key - the key associated 
+    * with the value
+    * @param {*} value - the value to insert
+    * aside the hash generator the operation is comstant time
+    */
+   insert(key, value) {
+        // get the hash index
+        const index = this._hash(key, this._tableSize);
+
+        // visual model [0, 0, ['a', 1]]
+        // but if another key-pair have the same hash index [0, 0, [ ['a', 1], ['b', 2] ]]
+
+        // check if the index exist
+        if (!this._storage[index]) {
+            // if no, create an empty array at this hash index
+            this._storage[index] = [];
+        }
+
+        // and then push to the hash index
+        this._storage[index].push([key, value]);
+   }
+
+   /*
+  * Deletes a key-value pair
+  * @param {string} key - the key associated with the value
+  * @return {*} value - the deleted value
+  */
+  remove() {
+    const index = this._hash(key, this._tableSize);
+
+        const arrayAtIndex = this._storage[index];
+        if (arrayAtIndex) {
+            for(let i in arrayAtIndex) {
+                const keyValueArray = arrayAtIndex[i];
+                if (keyValueArray[0] === key) {
+                   return  keyValueArray[1];
+                }
+            }
+        }
+  }
+
+    /*
+    * Returns the value associated with a key
+    * @param {string} key - the key to search for
+    * @return {*} - the value associated with the key
+    */
+    retrieve(key) {
+        const index = this._hash(key, this._tableSize);
+
+        const arrayAtIndex = this._storage[index];
+        if (arrayAtIndex) {
+            for(let i in arrayAtIndex) {
+                const keyValueArray = arrayAtIndex[i];
+                if (keyValueArray[0] === key) {
+                   return  keyValueArray[1];
+                }
+            }
+        }
+    }
+
+    /*
+    * Hashes string value into an integer that can be mapped to an array index
+    * @param {string} str - the string to be hashed
+    * @param {number} n - the size of the storage array
+    * @return {number} - an integer between 0 and n
+    */
+    _hash(str, n) {
+        let sum = 0;
+        for (let i = 0; i < str.length; i++)
+            sum += str.charCodeAt(i) * 3
+
+        return sum % n;
+    }
+}
