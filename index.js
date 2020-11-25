@@ -536,12 +536,14 @@ const myStack = new Stack();
 
 myStack.push('we');
 myStack.push('cash');
+// Stack { _storage: { '0': 'we', '1': 'cash' }, _length: 2 }
 
-// myStack.pop();
-// myStack.pop();
-// myStack.pop();
+myStack.pop();
+// Stack { _storage: { '0': 'we' }, _length: 1 }
+
 
 myStack.peek();
+// "we"
 
 console.log(myStack);
 
@@ -602,6 +604,32 @@ class Queue {
     }
 }
 
+const queue = new Queue();
+
+queue.enqueue('we');
+queue.enqueue('cash');
+queue.enqueue('last');
+
+// Queue {
+//     _storage: { '0': 'we', '1': 'cash', '2': 'last' },
+//     _length: 3,
+//     _start: 0
+//   }
+
+queue.dequeue();
+queue.dequeue();
+
+// Queue { _storage: { '2': 'last' }, _length: 1, _start: 2 }
+
+queue.enqueue('me');
+
+// Queue { _storage: { '2': 'last', '3': 'me' }, _length: 2, _start: 2 }
+
+queue.peek();
+// 2
+
+
+// Linked List exercise
 class LinkedList {
     constructor(value) {
         this._storage = {};
@@ -698,7 +726,33 @@ class LinkedList {
 // Note: for linkedlist operation looping through with for, forEach won't work rather use while instead
 // traverse with one pointer or two pointer
 
+const link = new LinkedList(2);
+link.insert(4)
+link.insert(5)
 
+// LinkedList {
+//     _storage: {},
+//     head: { value: 2, next: { value: 4, next: { value: 5, next: null } } },
+//     tail: { value: 5, next: null }
+//   }
+
+link.removeTail()
+
+// LinkedList {
+//     _storage: {},
+//     head: { value: 2, next: { value: 4, next: null } },
+//     tail: { value: 4, next: null }
+//   }
+
+link.contains(1)
+// false
+
+link.contains(2)
+// true
+
+
+
+//  Hash Table Exercise
 class HashTable {
     constructor(val) {
         this._storage = [];
@@ -781,3 +835,22 @@ class HashTable {
         return sum % n;
     }
 }
+
+const hash = new HashTable(25);
+
+hash.insert('a', 2);
+hash.insert('b', 3);
+
+// HashTable {
+//     _storage: [ <16 empty items>, [ [ 'a', 2 ] ], <2 empty items>, [ [ 'b', 3 ] ] ],
+//     _tableSize: 25
+//   }
+
+hash.retrieve('a');
+// 2
+
+hash.remove('a');
+// HashTable {
+//     _storage: [ <16 empty items>, [], <2 empty items>, [ [ 'b', 3 ] ] ],
+//     _tableSize: 25
+//   }
