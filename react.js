@@ -50,5 +50,21 @@ ReactDOM: responsible for rendering React elements to the DOM (kinda like rootEl
 
     statement: if(true) {}
     expression: name ? 'Hello' : 'World'
+
+    spread props
+    - How can you spread props?
+    const children = 'Hello World'
+    const className = 'container'
+    const props = {children, className}
+    const element = <div />?
+
+    Looking how jsx is form underneath will help
+    const element = react.createElement('div', props) or react.createElement('div', {...props})
+
+    so therefore we can do this:
+    const element = <div {...props} />
+
+    we can also add more props to the element
+    const element = <div id="default" {...props} className="contain" />
     
 */
