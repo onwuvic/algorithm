@@ -28,22 +28,67 @@
 
 
         // the first argument to React.createElement can also be a function which returns something that's renderable.
-        function Message({ children }) {
-                return (
-                    <div className="message">
-                        {children}
-                    </div>
-                )
-            }
+        // function Message({ children }) {
+        //         return (
+        //             <div className="message">
+        //                 {children}
+        //             </div>
+        //         )
+        //     }
 
-            const element = (
-                <div className="container">
-                    <Message>Hello World</Message>
-                    {React.createElement(Message, {
-                        children: 'Good bye World',
-                    })}
+        //     const element = (
+        //         <div className="container">
+        //             <Message>Hello World</Message>
+        //             {React.createElement(Message, {
+        //                 children: 'Good bye World',
+        //             })}
+        //         </div>
+        //     )
+
+        // prop validation
+        function Message({ subject, greeting }) {
+            return (
+                <div className="message">
+                    {greeting}, {subject}
                 </div>
             )
+        }
+
+        // PropTypes.string.isRequired
+      const PropTypes = {
+            string: function(props, propName, componentName) {
+                if (typeof props[propName] !== 'string') {
+                    console.error(`${propName} in ${componentName} must be a string`)
+                }
+                return this
+            },
+            isRequired: function(props, propName, componentName) {
+                if (!props[propName]) {
+                    return new Error(`${propName} in ${componentName} is required`)
+                }
+                return this
+            },
+            number: function(props, propName, componentName) {
+                if (typeof props[propName] !== 'number') {
+                    return new Error(`${propName} in ${componentName} must be a number`)
+                }
+                return this
+            },
+        }
+
+        Message.propTypes = {
+            subject: PropTypes.string,
+        }
+
+        const element = (
+            <div className="container">
+                <Message greeting="Hello" subject="World" />
+                {React.createElement(Message, {
+                    greeting: 'Goodbye',
+                    subject: 5,
+                })}
+            </div>
+        )
 
         ReactDOM.render(element, document.getElementById('root'))
     </script>
