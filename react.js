@@ -66,5 +66,38 @@ ReactDOM: responsible for rendering React elements to the DOM (kinda like rootEl
 
     we can also add more props to the element
     const element = <div id="default" {...props} className="contain" />
+
+    React Form
+    function UsernameForm({onSubmitUsername}) {
+        // access value of input
+        function handleSubmit(event) {
+            event.preventDefault()
+            const username = event.target.username.value
+            // ref access the value of input
+            const username = inputRef.current.value
+
+            onSubmitUsername(username)
+        }
+
+        // access individual input
+        function handleChange(event) {
+            const {value} = event.target
+        }
+
+        // using ref to access individual input
+        const inputRef = React.useRef()
+        function handleChange(event) {
+            const {value} = event.target
+        }
+        return (
+            <form onSubmit={handleSubmit}>
+            <div>
+                <label>Username:</label>
+                <input type="text" id="username" onChange={handleChange} ref={inputRef} />
+            </div>
+            <button type="submit">Submit</button>
+            </form>
+        )
+    }
     
 */
