@@ -21,7 +21,7 @@
     "glob": "^7.2.0",
     "lodash": "^4.17.21",
     "minimatch": "^3.0.4",
-    "moment": "^2.29.1",
+    "moment": "^2.29.2",
     "path-to-regexp": "^6.2.0",
     "url-pattern": "^1.0.3"
   }
