@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
+    <title>Document</title>
+    <link rel="stylesheet" href="./style.css">
+    <style>
+        /* p {
+           background-color: red;
+            color: black;
+            font-size: 30px; 
+        } */
+
+        .param1 {
+            background-color: pink;
+            color: green;
+            font-size: 20px;
+        }
+
+        .param2 {
+            background-color: yellow;
+            color: purple;
+            font-size: 20px;
+        }
+
+        #big {
+            background-color: yellow;
+            color: purple;
+            font-size: 20px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Inline css -->
+    <p class="param1">Lorem ipsum dolor sit amet consectetur adipisicing elit. Corrupti, velit cupiditate ea omnis tenetur autem 
+    quas deserunt vero molestias quaerat, laudantium veniam veritatis maiores. Beatae culpa dolore veniam corrupti possimus!
+    </p>
+    <p class="param2">Lorem ipsum dolor sit amet consectetur adipisicing elit. Inventore qui ipsa ipsam eius nesciunt necessitatibus neque ipsum natus iure assumenda suscipit doloribus velit, commodi magnam sapiente eum ea illo odio.</p>
+    <div class="param">
+        <ul>
+            <li>Me</li>
+            <li>you</li>
+            <li>us</li>
+            <li>they</li>
+        </ul>
+    </div>
+
+    <div className={classNames('rounded-lg', { 'border border-solid border-gray px-6 py-9 md:px-20 md:py-10 ' :
+        isOpen, 'py-5 px-5 bg-beige' : !isOpen, })}>
+        <div className="flex flex-wrap items-center justify-between">
+            <div className="inline-flex items-center">
+                <div className="relative mr-2">
+                    <SparklesSolidIcon className="w-4 h-4 text-yellow-light" />
+                    <SparklesOutlineIcon className="absolute w-4 h-4 text-grey-dark bottom-px" />
+                </div>
+                <h3 className="text-sm font-semibold leading-6 tracking-wider uppercase text-gray-dark">
+                    WHAT DO THE BADGES MEAN?
+                </h3>
+            </div>
+            <div className="flex-shrink-0" onClick={()=> setOpen(!isOpen)}>
+                <div className={classNames( 'inline-flex items-center text-xs font-medium cursor-pointer text-gray-dark' ,
+                    { 'md:px-2 md:py-2 border border-transparent rounded-md md:shadow-sm md:bg-beige' : isOpen, } )}>
+                    {isOpen ? (
+                    <span className="hidden md:block">Collapse</span>
+                    ) : (
+                    <span className="hidden md:block">Expand</span>
+                    )}
+                    <ChevronUpIcon aria-hidden="true" className={classNames( 'w-6 h-6 md:w-4 md:h-4 md:ml-2.5 text-gray'
+                        , 'transform stroke-current' , { 'rotate-0' : isOpen, '-rotate-180' : !isOpen, } )} />
+                </div>
+            </div>
+        </div>
+        {isOpen && (
+        <div className="grid mt-8 md:gap-x-36 gap-y-8 md:grid-cols-2 md:mt-10">
+            <div>
+                <div
+                    className="inline-flex items-center px-3.5 py-1 rounded-xl border border-solid bg-green-lightest border-green-light">
+                    <div className="relative mr-2">
+                        <SparklesSolidIcon className="w-4 h-4 text-yellow-light" />
+                        <SparklesOutlineIcon className="absolute w-4 h-4 text-grey-dark bottom-px" />
+                    </div>
+                    <p className="text-xs font-normal text-gray-dark">
+                        Premium Partner
+                    </p>
+                </div>
+                <p className="mt-3.5 text-grey-dark text-sm">
+                    Some partners receive this status if they have exceptionally
+                    high ratings from other customers, and if they have been with us
+                    for a long time.
+                </p>
+            </div>
+            <div>
+                <div className="inline-flex items-center">
+                    <CheckCircleIcon aria-hidden="true"
+                        className="w-5 h-5 mr-3 border-0 border-solid rounded-full text-green-light bg-gray-dark" />
+                    <p className="text-sm font-normal text-gray-dark">
+                        Chamber of Architecture
+                    </p>
+                </div>
+                <p className="mt-3.5 text-grey-dark text-sm">
+                    Partners who are certified by their local chamber of
+                    architecture have this badge.
+                </p>
+            </div>
+            <div>
+                <div className="inline-flex items-center">
+                    <p className="text-sm font-normal text-gray-dark">
+                        Customer rating
+                    </p>
+                    <StarRating aria-hidden="true" rating={5} className="mx-2 text-yellow" iconClassName="w-5 h-5" />
+                    <span className="text-sm font-normal text-gray-dark">(23)</span>
+                </div>
+                <p className="mt-3.5 text-grey-dark text-sm">
+                    This badge shows how long the partner is known to us. We vet our
+                    partners regularly, so all our partners must maintain a level of
+                    work in order to continue working with us.
+                </p>
+            </div>
+            <div>
+                <div className="inline-flex items-center">
+                    <CheckCircleIcon aria-hidden="true"
+                        className="w-5 h-5 mr-3 border-0 border-solid rounded-full text-green-light bg-gray-dark" />
+                    <p className="text-sm font-normal text-gray-dark">
+                        Construyo Insurance
+                    </p>
+                </div>
+                <p className="mt-3.5 text-grey-dark text-sm">
+                    In case something happens with your project and your house falls
+                    down, Construyo provides insurance to cover it.
+                </p>
+            </div>
+            <div>
+                <div className="inline-flex items-center">
+                    <XCircleIcon aria-hidden="true"
+                        className="w-5 h-5 mr-3 border-0 border-solid rounded-full text-gray-lighter bg-gray-dark" />
+                    <p className="text-sm font-normal text-gray-dark">
+                        Personal Insurance
+                    </p>
+                </div>
+                <p className="mt-3.5 text-grey-dark text-sm">
+                    In case something happens with your project and your house falls
+                    down, the partner has personal insurance to cover it.
+                </p>
+            </div>
+            <div>
+                <div className="inline-flex items-center">
+                    <div className="relative mr-3">
+                        <ShieldCheckSolidIcon aria-hidden="true" className="w-5 h-5 text-green-light" />
+                        <ShieldCheckOutlineIcon aria-hidden="true" className="absolute inset-0 w-5 h-5 text-gray-dark" />
+                    </div>
+    
+                    <p className="text-sm font-normal text-gray-dark">
+                        With us since 2019
+                    </p>
+                </div>
+                <p className="mt-3.5 text-grey-dark text-sm">
+                    This badge shows how long the partner is known to us. We vet our
+                    partners regularly, so all our partners must maintain a level of
+                    work in order to continue working with us.
+                </p>
+            </div>
+        </div>
+        )}
+    </div>
+</body>
+</html>

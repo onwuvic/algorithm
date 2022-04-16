@@ -99,5 +99,44 @@ ReactDOM: responsible for rendering React elements to the DOM (kinda like rootEl
             </form>
         )
     }
+
+    // default initial value to something especially when you are using it for a useState initial value because it can be undefined
+    function Greeting({initialValue = ''}) {
+        const [name, setName] = useState(initialValue)
+
+        // IN this case input value doesn't accept undefined as value so it will throw an error.
+        // providing default value is best here
+        return (
+            <input value={name} />
+        )
+    }
+
+    // Each of the hooks has a unique API. Some return a value (like React.useRef and React.useContext), 
+    others return a pair of values (like React.useState and React.useReducer), and 
+    others return nothing at all (like React.useEffect).
+
+    // Lazy state initialization
+    if the initial state is a call that might be slow or async it will make more sense to use a lazy state initialization.
+    the useState allows you to pass a function as params. The good thing about this is prevent the function from being called 
+    every time the component re-renders. 
+    From this React.useState(someExpensiveComputation()) To this: React.useState(() => someExpensiveComputation())
+
+    // Note: child component re-render when
+    1. a state changes within the component
+    2. When the parent state changes
+
+    with dependencies you can detect when your side-effects in child component should re-render. 
+    Allowing only state that actually change to trigger and not the entirety of the child component.
+
+    // Custom hooks: are just hooks that uses other hooks inside of it. e.g
+    it is just using useState and useEffect
+
+    useLocalStorage({key, defaultValue = ''}) {
+        const [state, setState] = useState(defaultValue)
+
+        useEffect(() => {
+            window.localStorage.setItem(key, state)
+        }, [])
+    }
     
 */

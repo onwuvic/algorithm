@@ -854,3 +854,51 @@ hash.remove('a');
 //     _storage: [ <16 empty items>, [], <2 empty items>, [ [ 'b', 3 ] ] ],
 //     _tableSize: 25
 //   }
+
+
+/**
+ Imperative programming focus on the HOW, mutate state, and are not readable.
+ Declarative programming focus on the WHAT is happening, can’t mutate state, and should be readable at a glance.
+
+ Note: Many (if not all) declarative approaches have some sort of underlying imperative abstraction.
+
+ Example: Imperative programming
+    function double(arr) {
+        let results = [];
+        for (let i = 0; i < arr.length; i++) {
+            results.push(arr[i] * 2);
+        }
+        return results;
+    }
+
+    function add(arr) {
+        let result = 0;
+        for (let i = 0; i < arr.length; i++) {
+            result += arr[i];
+        }
+        return result;
+    }
+
+    $("#btn").click(function () {
+        $(this).toggleClass("highlight");
+        $(this).text() === "Add Highlight"
+            ? $(this).text("Remove Highlight")
+            : $(this).text("Add Highlight");
+    });
+
+Example: Declarative programming
+
+    function double(arr) {
+        return arr.map((item) => item * 2);
+    }
+
+    function add(arr) {
+        return arr.reduce((prev, current) => prev + current, 0);
+    }
+
+    <Btn
+        onToggleHighlight={this.handleToggleHighlight}
+        highlight={this.state.highlight}>
+            {this.state.buttonText}
+    </Btn>
+ */
