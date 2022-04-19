@@ -138,5 +138,16 @@ ReactDOM: responsible for rendering React elements to the DOM (kinda like rootEl
             window.localStorage.setItem(key, state)
         }, [])
     }
+
+
+    Lesson 1: Don't mutate state directly e.g
+    const [squares, setSquares] = useState([1,2,3,4,5,6,7,8,9])
+
+    function handleSquareClick(square) {
+        // copy the array before mutating it
+        const newSquares = [...squares]
+        newSquares[square] = 'X'
+        setSquares(newSquares)
+    }
     
 */
