@@ -149,5 +149,128 @@ ReactDOM: responsible for rendering React elements to the DOM (kinda like rootEl
         newSquares[square] = 'X'
         setSquares(newSquares)
     }
+
+    // Lesson 2: Clean after yourself -  e.g
+    In a useEffect, you can't return anything except a cleanup function that will be called when the component unmounts.
+    NOTE: In case of working with async/await, you have to be careful because async/await function returns a promise. 
+    (whether you're not returning anything at all, or explicitly returning a function).
+
+    // this does not work, don't do this:
+    React.useEffect(async () => {
+        const result = await doSomeAsyncThing()
+        // do something with the result
+    })
+
+    // this does work, do this:
+    React.useEffect(() => {
+        async function effect() {
+            const result = await doSomeAsyncThing()
+            // do something with the result
+        }
+        effect()
+    })
+
+    // or just extract the async code into a utility function which I call and then use the promise-based 
+    // .then method instead of using async/await syntax:
+    React.useEffect(() => {
+        doSomeAsyncThing().then(result => {
+            // do something with the result
+        })
+    })
+
+    // Lesson 2: Key prop in react
+    the key prop is used to identify a specific element in the DOM. 
+    It is used to update the DOM efficiently and rerender only the changed elements or trigger rerendering.
+
+    // a change in count will trigger a rerendering of the User component
+    function Child({key}) {
+        const [count, setCount] = useState(0)
+        return <User key={count}>Hello World</User>
+    }
+
+
+    // Lesson 3: useReducer
+    useReducer is just like useState with different api. 
+    It takes a reducer function (which is just normal function) as a first parameter and an initial state as a second parameter.
+
+    This two works the same way.
+    const [count, setCount] = useState(initialState)
+    const [count, setCount] = useReducer(
+        (currentState, whatEverIsPassedIntoTheSetCount) => {}, 
+        initialState
+    )
+
+    The good thing is that we can extract the reducer function into a separate file and import it.
+    const countReducer = (count, step) => count + step
+
+    function Counter({initialCount = 0, step = 1}) {
+        const [count, changeCount] = React.useReducer(countReducer, initialCount)
+        
+        const increment = () => changeCount(step)
+
+        return <button onClick={increment}>{count}</button>
+    }
+
+    We can also pass object into our setState and as our initial state.
+    const countReducer = (state, action) => ({...state, ...action})
+
+    function Counter({initialCount = 0, step = 1}) {
+        const [state, setState] = React.useReducer(countReducer, {
+            count: initialCount,
+        })
+        const {count} = state
+
+        // here we doing all the count logic and pass the value to setState
+        const increment = () => setState({count: count + step})
+        return <button onClick={increment}>{count}</button>
+    }
+
+    We can refactor our reducer function action to be either an object or a function.
+    const countReducer = (state, action) => ({
+        ...state,
+        ...(typeof action === 'function' ? action(state) : action),
+    })
+
+    function Counter({initialCount = 0, step = 1}) {
+        const [state, setState] = React.useReducer(countReducer, {
+            count: initialCount,
+        })
+        const {count} = state
+
+        // here we are just passing a function to setState
+        const increment = () =>
+            setState(currentState => ({count: currentState.count + step}))
+        return <button onClick={increment}>{count}</button>
+    }
+
+    We make our reducer API to look like the traditional way reducers looks like in React.
+    function countReducer(state, action) {
+        const {type, step} = action
+
+        switch (type) {
+            case 'increment': {
+                return {
+                    ...state,
+                    count: state.count + step,
+                }
+            }
+            default: {
+                throw new Error(`Unsupported action type: ${type}`)
+            }
+        }
+    }
+
+    function Counter({initialCount = 0, step = 1}) {
+    // we just change the name from setState to dispatch
+    const [state, dispatch] = React.useReducer(countReducer, {
+        count: initialCount,
+    })
+    const {count} = state
+
+    // here we are just passing an object with type and step (which is our value)
+    // we can call step "payload" in our action
+    const increment = () => dispatch({type: 'increment', step})
+    return <button onClick={increment}>{count}</button>
+    }
     
 */
