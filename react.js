@@ -272,5 +272,23 @@ ReactDOM: responsible for rendering React elements to the DOM (kinda like rootEl
     const increment = () => dispatch({type: 'increment', step})
     return <button onClick={increment}>{count}</button>
     }
+
+    lazy initialization with useReducer
+
+    function init(initialStateFromProps) {
+        return {
+            pokemon: null,
+            loading: false,
+            error: null,
+        }
+    }
+
+    // ...
+
+    const [state, dispatch] = React.useReducer(reducer, props.initialState, init)
+    So, if you pass a third function argument to useReducer, 
+    it passes the second argument to that function and uses the return value for the initial state.
+    This could be useful if our init function read into localStorage or something 
+    else that we wouldn't want happening every re-render.
     
 */
